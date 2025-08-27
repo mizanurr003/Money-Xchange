@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Dynamic Cart with Currency Converter</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  
+</head>
+<body>
+
+  <div class="cart">
+    <h2>Shopping Cart</h2>
+
+    <div class="cart-item" data-base-price="100">
+      <span>Product A (Qty: <input type="number" class="qty" min="1" value="1">)</span>
+      <span class="cart-item-price animate-price">100 SAR</span>
+    </div>
+
+    <div class="cart-item" data-base-price="200">
+      <span>Product B (Qty: <input type="number" class="qty" min="1" value="2">)</span>
+      <span class="cart-item-price animate-price">400 SAR</span>
+    </div>
+
+    <div class="cart-total">
+      Subtotal: <span class="total-price animate-price">500 SAR</span>
+    </div>
+
+    <div class="currency-switcher">
+      <label for="currency">Choose Currency:</label>
+      <select id="currency">
+        <option value="SAR" selected>SAR (Saudi Riyal)</option>
+        <option value="QAR">QAR (Qatari Rial)</option>
+        <option value="USD">USD (US Dollar)</option>
+        <option value="EUR">EUR (Euro)</option>
+        <option value="AED">AED (UAE Dirham)</option>
+        <option value="OMR">OMR (Omani Rial)</option>
+        <option value="GBP">GBP (British Pound)</option>
+      </select>
+    </div>
+  </div>
+
+<!-- Main JS -->
+<script>
+    const rates = {
+      "SAR": 1,
+      "QAR": 0.98,
+      "USD": 0.27,
+      "EUR": 0.25,
+      "AED": 0.99,
+      "OMR": 0.10,
+      "GBP": 0.22
+    };
+
+    let currentCurrency = "SAR";
+
+    function formatNumber(amount) {
+      return Number(Math.round((amount + Number.EPSILON) * 100) / 100).toFixed(2);
+    }
+
+    function animatePrice(el) {
+      el.classList.add('update');
+      setTimeout(() => el.classList.remove('update'), 300);
+    }
+
+    function updatePrices() {
+      let subtotal = 0;
+      document.querySelectorAll(".cart-item").forEach(item => {
+        const basePrice = parseFloat(item.getAttribute("data-base-price"));
+        const qty = parseInt(item.querySelector(".qty").value) || 1;
+        const converted = basePrice * qty * rates[currentCurrency];
+        item.querySelector(".cart-item-price").textContent = formatNumber(converted) + " " + currentCurrency;
+        animatePrice(item.querySelector(".cart-item-price"));
+        subtotal += converted;
+      });
+
+      const totalEl = document.querySelector(".total-price");
+      totalEl.textContent = formatNumber(subtotal) + " " + currentCurrency;
+      animatePrice(totalEl);
+    }
+
+    // Currency change
+    document.getElementById("currency").addEventListener("change", function() {
+      currentCurrency = this.value;
+      updatePrices();
+    });
+
+    // Quantity change
+    document.querySelectorAll(".qty").forEach(input => {
+      input.addEventListener("input", updatePrices);
+    });
+
+    // Initial calculation
+    updatePrices();
+  </script>
+  
+</body>
+</html>

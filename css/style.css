@@ -1,0 +1,115 @@
+* body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 50px;
+      margin: 0;
+
+      /* Background image */
+      background-image: url('https://commerceclarity.in/wp-content/uploads/2024/03/Demand-Class-12-Notes-4-1024x576.webp');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+
+      /* Overlay using linear-gradient */
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.3); /* dark overlay for readability */
+      z-index: 0;
+    }
+
+    .cart {
+      position: relative;
+      z-index: 1; /* above overlay */
+      max-width: 700px;
+      margin: auto;
+      background: rgba(255,255,255,0.9); /* semi-transparent white for readability */
+      border-radius: 12px;
+      padding: 30px 40px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #000000;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+      border-bottom: 1px solid #eee;
+      transition: background 0.3s;
+    }
+
+    .cart-item:hover {
+      background: #f1f1f1;
+    }
+
+    .cart-item span {
+      font-size: 16px;
+      color: #000000;
+    }
+
+    .cart-item-price {
+      font-weight: 600;
+      font-size: 16px;
+      color: #1a73e8;
+      transition: all 0.3s ease;
+    }
+
+    .cart-total {
+      margin-top: 25px;
+      font-size: 20px;
+      font-weight: bold;
+      text-align: right;
+      color: #000000;
+      transition: all 0.3s ease;
+    }
+
+    .currency-switcher {
+      margin-top: 25px;
+      text-align: right;
+    }
+
+    select {
+      padding: 8px 12px;
+      font-size: 15px;
+      border-radius: 8px;
+      border: 1px solid #ff0a0a;
+      outline: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    select:hover {
+      border-color: #1a73e8;
+    }
+
+    input.qty {
+      width: 50px;
+      text-align: center;
+      font-size: 16px;
+      padding: 5px 8px;
+      border-radius: 6px;
+      border: 1px solid #ff0a0a;
+      margin-left: 10px;
+    }
+
+    /* Animation for price change */
+    .animate-price {
+      display: inline-block;
+      transform: scale(1);
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+
+    .animate-price.update {
+      color: #e91e63;
+      transform: scale(1.2);
+    }
+  
